@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput, StyleSheet } from 'react-native';
-import { Card, CardSection } from './common';
+import { View, Text, Button, StyleSheet } from 'react-native';
+import { Card, CardSection, Input } from './common';
 
 class Login extends Component {
-    state = {text: ''}
-
+    state = {email: '', password: ''};
     func() {
 
     }
@@ -12,22 +11,29 @@ class Login extends Component {
         return (
             <Card>
                 <CardSection>
-                    <TextInput 
+                    <Input
+                        label="email"
+                        placeholder="Insert email"
                         value={this.state.text}
-                        onChangeText={text => this.setState({text})}
-                        style={styles.textinput}
-                    >
-
-                    </TextInput>
+                        onChangeText={email => this.setState({ email })}
+                    />
                 </CardSection>
 
                 <CardSection>
+                    <Input
+                        secure
+                        label="password"
+                        placeholder="Insert password"
+                        value={this.state.text}
+                        onChangeText={password => this.setState({ password })}
+                    />
                 </CardSection>
+                  
                 <CardSection>
                     <Button 
                         onPress={this.func()}
-                        title='Login'>
-                    </Button>
+                        title='Login' 
+                    />
                 </CardSection>
             </Card>
         )
@@ -35,22 +41,7 @@ class Login extends Component {
 }
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 15,
-        height: 60,
-        backgroundColor: '#ccc',
-        justifyContent: 'center',
-        alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
-        elevation: 2,
-        position: 'relative',
-
     },
-	textinput: {
-		height: 20,
-        width: 100,
-	} 
 });
 
 export { Login };

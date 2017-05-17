@@ -18,5 +18,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         borderColor: '#ddd',
         position: 'relative',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
     }
 });
