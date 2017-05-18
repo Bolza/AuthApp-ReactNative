@@ -2,8 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 
 export const Input = (props) => {
-    // state = { text: '' };
-
     return (
         <View style={styles.container}>     
             <Text style={styles.label}>{props.label}</Text>

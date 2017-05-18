@@ -1,9 +1,9 @@
 import firebase from 'firebase';
 import React, { Component } from 'react';
 import { Button } from 'react-native-material-ui';
-import { View, Text, StyleSheet, Animated } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
-import { Card, CardSection, Input, Spinner } from './common';
+import { Card, CardSection, Input, Spinner, Container } from './common';
 
 class Login extends Component {
 
@@ -12,8 +12,7 @@ class Login extends Component {
         password: '',
         error: '',
         message: '',
-        isLoading: false,
-        messageAnim: new Animated.Value(0)
+        loading: false,
     };
     
     componentDidMount() {
@@ -22,20 +21,20 @@ class Login extends Component {
     
     onCreationError(resp) {
         console.log('onCreationError', resp);
-        this.setState({ isLoading: false, message: '', error: resp.message });
+        this.setState({ loading: false, message: '', error: resp.message });
     }
     onCreationSuccess(resp) {
         console.log('onCreationSuccess', resp);
-        this.setState({ isLoading: false, error: '', message: 'Creation Success' });
+        this.setState({ loading: false, error: '', message: 'Creation Success' });
     }
     onLoginSuccess(resp) {
         console.log('onLoginSuccess', resp);
-        this.setState({ isLoading: false, error: '', message: 'Login Success' });
+        this.setState({ loading: false, error: '', message: 'Login Success' });
     }
     
     onButtonPress() {
         const { email, password } = this.state;
-        this.setState({ error: '', isLoading: true });
+        this.setState({ error: '', loading: true });
         firebase
             .auth()
             .signInWithEmailAndPassword(email, password)
@@ -50,7 +49,7 @@ class Login extends Component {
     }
     
     renderButton() {
-        if (this.state.isLoading) {
+        if (this.state.loading) {
             return <Spinner />;
         }
         
@@ -66,8 +65,6 @@ class Login extends Component {
     }
     
     render() {
-        const toValue = this.state.message || this.state.error ? 60 : 0;
-        Animated.spring(this.state.messageAnim, { toValue, friction: 10 }).start();
         
         return (
             <Card>
@@ -90,11 +87,15 @@ class Login extends Component {
                     />
                 </CardSection>
                 
-                <Animated.View style={{ height: this.state.messageAnim }}>
-                    <Text style={styles.error}>{this.state.error}</Text>
-                    <Text style={styles.message}>{this.state.message}</Text>
-                </Animated.View>
-            
+                <Container
+                    spring
+                    loading={this.state.loading}
+                    error={this.state.error}
+                    message={this.state.message}
+                >
+                    <Text> wtf </Text>
+                </Container>
+
                 <CardSection>
                     {this.renderButton()}
                 </CardSection>
