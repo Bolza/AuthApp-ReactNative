@@ -46,14 +46,13 @@ class App extends Component {
     }
 
     renderContent() {
-        if (this.state.loading) {
-             return <Spinner />;
-        } else if (this.state.user.logged) {
+       if (this.state.user.logged) {
             return (
                 <Button 
+                    disabled={this.state.loading}
                     primary raised  
                     text='Logout' 
-                    onPress={firebase.auth().signOut}
+                    onPress={() => firebase.auth().signOut()}
                 />
             );
         } 

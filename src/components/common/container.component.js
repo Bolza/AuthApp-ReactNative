@@ -30,16 +30,14 @@ class Container extends Component {
     }
 
     renderContent() {
-        console.log(this.state)
         if (this.state.loading) {
             return <Spinner />;
-        } else if (this.state.message) {
-            return <Text style={styles.error}>{this.state.error}</Text>;
         } else if (this.state.error) {
+            return <Text style={styles.error}>{this.state.error}</Text>;
+        } else if (this.state.message) {
             return <Text style={styles.message}>{this.state.message}</Text>;
         } 
-        return <Text>asd</Text>
-        // return this.props.children || null;
+        return this.props.children || null;
     }
 
     render() {
@@ -49,7 +47,7 @@ class Container extends Component {
         return (
             <Animated.View style={{ height: this.state.springAnim }}>
                 <ThemeProvider uiTheme={uiTheme}>
-                    {this.renderContent()}         
+                    <View style={styles.box}>{this.renderContent()}</View>
                 </ThemeProvider>
             </Animated.View>
         );
@@ -58,17 +56,18 @@ class Container extends Component {
 
 const styles = StyleSheet.create({
     error: {
-        marginTop: 10,
-        // fontSize: 16,
-        alignSelf: 'center',
+        fontSize: 16,
         color: '#ff0000',
     },
     message: {
-        marginTop: 10,
-        // fontSize: 16,
-        alignSelf: 'center',
+        fontSize: 16,
         color: '#0000ff',
     },
+    box: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 });
 
 export { Container };

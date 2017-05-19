@@ -1,12 +1,12 @@
 import firebase from 'firebase';
 import React, { Component } from 'react';
 import { Button } from 'react-native-material-ui';
-import { View, Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 
-import { Card, CardSection, Input, Spinner, Container } from './common';
+import { Card, CardSection, Input, Container } from './common';
 
 class Login extends Component {
-
+    
     state = { 
         email: '', 
         password: '',
@@ -14,10 +14,6 @@ class Login extends Component {
         message: '',
         loading: false,
     };
-    
-    componentDidMount() {
-        
-    }    
     
     onCreationError(resp) {
         console.log('onCreationError', resp);
@@ -47,25 +43,8 @@ class Login extends Component {
                     .catch(this.onCreationError.bind(this));
             });
     }
-    
-    renderButton() {
-        if (this.state.loading) {
-            return <Spinner />;
-        }
-        
-        const cc = { container: styles.loginButton };
-        return (
-            <Button 
-                style={cc}
-                primary raised 
-                onPress={this.onButtonPress.bind(this)}
-                text='Login' 
-            />
-        );
-    }
-    
+
     render() {
-        
         return (
             <Card>
                 <CardSection>
@@ -97,28 +76,25 @@ class Login extends Component {
                 </Container>
 
                 <CardSection>
-                    {this.renderButton()}
+                    <Button 
+                        disabled={this.state.loading}
+                        style={cc}
+                        primary raised 
+                        onPress={this.onButtonPress.bind(this)}
+                        text='Login' 
+                    />
                 </CardSection>
             </Card>
         );
     }
 }
+
 const styles = StyleSheet.create({
-    error: {
-        marginTop: 10,
-        // fontSize: 16,
-        alignSelf: 'center',
-        color: '#ff0000',
-    },
-    message: {
-        marginTop: 10,
-        // fontSize: 16,
-        alignSelf: 'center',
-        color: '#0000ff',
-    },
     loginButton: {
         flex: 1,
     },
 });
+const cc = { container: styles.loginButton };
+
 
 export { Login };
